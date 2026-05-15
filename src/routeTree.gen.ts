@@ -9,11 +9,37 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as OrdiniRouteImport } from './routes/ordini'
+import { Route as OpzioniRouteImport } from './routes/opzioni'
+import { Route as MagazzinoRouteImport } from './routes/magazzino'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as MagazzinoIndexRouteImport } from './routes/magazzino.index'
 import { Route as ChatIndexRouteImport } from './routes/chat.index'
+import { Route as MagazzinoProductIdRouteImport } from './routes/magazzino.$productId'
 import { Route as ChatThreadIdRouteImport } from './routes/chat.$threadId'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrdiniRoute = OrdiniRouteImport.update({
+  id: '/ordini',
+  path: '/ordini',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OpzioniRoute = OpzioniRouteImport.update({
+  id: '/opzioni',
+  path: '/opzioni',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MagazzinoRoute = MagazzinoRouteImport.update({
+  id: '/magazzino',
+  path: '/magazzino',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ChatRoute = ChatRouteImport.update({
   id: '/chat',
   path: '/chat',
@@ -24,10 +50,20 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MagazzinoIndexRoute = MagazzinoIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => MagazzinoRoute,
+} as any)
 const ChatIndexRoute = ChatIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => ChatRoute,
+} as any)
+const MagazzinoProductIdRoute = MagazzinoProductIdRouteImport.update({
+  id: '/$productId',
+  path: '/$productId',
+  getParentRoute: () => MagazzinoRoute,
 } as any)
 const ChatThreadIdRoute = ChatThreadIdRouteImport.update({
   id: '/$threadId',
@@ -38,36 +74,114 @@ const ChatThreadIdRoute = ChatThreadIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/chat': typeof ChatRouteWithChildren
+  '/magazzino': typeof MagazzinoRouteWithChildren
+  '/opzioni': typeof OpzioniRoute
+  '/ordini': typeof OrdiniRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/chat/$threadId': typeof ChatThreadIdRoute
+  '/magazzino/$productId': typeof MagazzinoProductIdRoute
   '/chat/': typeof ChatIndexRoute
+  '/magazzino/': typeof MagazzinoIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/opzioni': typeof OpzioniRoute
+  '/ordini': typeof OrdiniRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/chat/$threadId': typeof ChatThreadIdRoute
+  '/magazzino/$productId': typeof MagazzinoProductIdRoute
   '/chat': typeof ChatIndexRoute
+  '/magazzino': typeof MagazzinoIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/chat': typeof ChatRouteWithChildren
+  '/magazzino': typeof MagazzinoRouteWithChildren
+  '/opzioni': typeof OpzioniRoute
+  '/ordini': typeof OrdiniRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/chat/$threadId': typeof ChatThreadIdRoute
+  '/magazzino/$productId': typeof MagazzinoProductIdRoute
   '/chat/': typeof ChatIndexRoute
+  '/magazzino/': typeof MagazzinoIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/chat' | '/chat/$threadId' | '/chat/'
+  fullPaths:
+    | '/'
+    | '/chat'
+    | '/magazzino'
+    | '/opzioni'
+    | '/ordini'
+    | '/sitemap.xml'
+    | '/chat/$threadId'
+    | '/magazzino/$productId'
+    | '/chat/'
+    | '/magazzino/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/chat/$threadId' | '/chat'
-  id: '__root__' | '/' | '/chat' | '/chat/$threadId' | '/chat/'
+  to:
+    | '/'
+    | '/opzioni'
+    | '/ordini'
+    | '/sitemap.xml'
+    | '/chat/$threadId'
+    | '/magazzino/$productId'
+    | '/chat'
+    | '/magazzino'
+  id:
+    | '__root__'
+    | '/'
+    | '/chat'
+    | '/magazzino'
+    | '/opzioni'
+    | '/ordini'
+    | '/sitemap.xml'
+    | '/chat/$threadId'
+    | '/magazzino/$productId'
+    | '/chat/'
+    | '/magazzino/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ChatRoute: typeof ChatRouteWithChildren
+  MagazzinoRoute: typeof MagazzinoRouteWithChildren
+  OpzioniRoute: typeof OpzioniRoute
+  OrdiniRoute: typeof OrdiniRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ordini': {
+      id: '/ordini'
+      path: '/ordini'
+      fullPath: '/ordini'
+      preLoaderRoute: typeof OrdiniRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/opzioni': {
+      id: '/opzioni'
+      path: '/opzioni'
+      fullPath: '/opzioni'
+      preLoaderRoute: typeof OpzioniRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/magazzino': {
+      id: '/magazzino'
+      path: '/magazzino'
+      fullPath: '/magazzino'
+      preLoaderRoute: typeof MagazzinoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/chat': {
       id: '/chat'
       path: '/chat'
@@ -82,12 +196,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/magazzino/': {
+      id: '/magazzino/'
+      path: '/'
+      fullPath: '/magazzino/'
+      preLoaderRoute: typeof MagazzinoIndexRouteImport
+      parentRoute: typeof MagazzinoRoute
+    }
     '/chat/': {
       id: '/chat/'
       path: '/'
       fullPath: '/chat/'
       preLoaderRoute: typeof ChatIndexRouteImport
       parentRoute: typeof ChatRoute
+    }
+    '/magazzino/$productId': {
+      id: '/magazzino/$productId'
+      path: '/$productId'
+      fullPath: '/magazzino/$productId'
+      preLoaderRoute: typeof MagazzinoProductIdRouteImport
+      parentRoute: typeof MagazzinoRoute
     }
     '/chat/$threadId': {
       id: '/chat/$threadId'
@@ -111,9 +239,27 @@ const ChatRouteChildren: ChatRouteChildren = {
 
 const ChatRouteWithChildren = ChatRoute._addFileChildren(ChatRouteChildren)
 
+interface MagazzinoRouteChildren {
+  MagazzinoProductIdRoute: typeof MagazzinoProductIdRoute
+  MagazzinoIndexRoute: typeof MagazzinoIndexRoute
+}
+
+const MagazzinoRouteChildren: MagazzinoRouteChildren = {
+  MagazzinoProductIdRoute: MagazzinoProductIdRoute,
+  MagazzinoIndexRoute: MagazzinoIndexRoute,
+}
+
+const MagazzinoRouteWithChildren = MagazzinoRoute._addFileChildren(
+  MagazzinoRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ChatRoute: ChatRouteWithChildren,
+  MagazzinoRoute: MagazzinoRouteWithChildren,
+  OpzioniRoute: OpzioniRoute,
+  OrdiniRoute: OrdiniRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
