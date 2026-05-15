@@ -72,11 +72,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "StockAI — Inventario HORECA via voce" },
+      {
+        name: "description",
+        content: "Aggiorna l'inventario del ristorante parlando con un assistente AI. Semaforo critico/in esaurimento/sicuro per ogni prodotto.",
+      },
+      { property: "og:title", content: "StockAI — Inventario HORECA via voce" },
+      {
+        property: "og:description",
+        content: "Chat vocale per aggiornare l'inventario in cucina, dashboard manager con semaforo dello stock.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
