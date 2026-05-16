@@ -10,39 +10,30 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as OrdiniRouteImport } from './routes/ordini'
-import { Route as OpzioniRouteImport } from './routes/opzioni'
-import { Route as MagazzinoRouteImport } from './routes/magazzino'
-import { Route as ChatRouteImport } from './routes/chat'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as MagazzinoIndexRouteImport } from './routes/magazzino.index'
-import { Route as ChatIndexRouteImport } from './routes/chat.index'
-import { Route as MagazzinoProductIdRouteImport } from './routes/magazzino.$productId'
-import { Route as ChatThreadIdRouteImport } from './routes/chat.$threadId'
+import { Route as AuthenticatedOrdiniRouteImport } from './routes/_authenticated.ordini'
+import { Route as AuthenticatedOpzioniRouteImport } from './routes/_authenticated.opzioni'
+import { Route as AuthenticatedMagazzinoRouteImport } from './routes/_authenticated.magazzino'
+import { Route as AuthenticatedChatRouteImport } from './routes/_authenticated.chat'
+import { Route as AuthenticatedMagazzinoIndexRouteImport } from './routes/_authenticated.magazzino.index'
+import { Route as AuthenticatedChatIndexRouteImport } from './routes/_authenticated.chat.index'
+import { Route as AuthenticatedMagazzinoProductIdRouteImport } from './routes/_authenticated.magazzino.$productId'
+import { Route as AuthenticatedChatThreadIdRouteImport } from './routes/_authenticated.chat.$threadId'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
-const OrdiniRoute = OrdiniRouteImport.update({
-  id: '/ordini',
-  path: '/ordini',
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const OpzioniRoute = OpzioniRouteImport.update({
-  id: '/opzioni',
-  path: '/opzioni',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MagazzinoRoute = MagazzinoRouteImport.update({
-  id: '/magazzino',
-  path: '/magazzino',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ChatRoute = ChatRouteImport.update({
-  id: '/chat',
-  path: '/chat',
+const AuthenticatedRoute = AuthenticatedRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -50,71 +41,99 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MagazzinoIndexRoute = MagazzinoIndexRouteImport.update({
+const AuthenticatedOrdiniRoute = AuthenticatedOrdiniRouteImport.update({
+  id: '/ordini',
+  path: '/ordini',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedOpzioniRoute = AuthenticatedOpzioniRouteImport.update({
+  id: '/opzioni',
+  path: '/opzioni',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedMagazzinoRoute = AuthenticatedMagazzinoRouteImport.update({
+  id: '/magazzino',
+  path: '/magazzino',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedChatRoute = AuthenticatedChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedMagazzinoIndexRoute =
+  AuthenticatedMagazzinoIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedMagazzinoRoute,
+  } as any)
+const AuthenticatedChatIndexRoute = AuthenticatedChatIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => MagazzinoRoute,
+  getParentRoute: () => AuthenticatedChatRoute,
 } as any)
-const ChatIndexRoute = ChatIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => ChatRoute,
-} as any)
-const MagazzinoProductIdRoute = MagazzinoProductIdRouteImport.update({
-  id: '/$productId',
-  path: '/$productId',
-  getParentRoute: () => MagazzinoRoute,
-} as any)
-const ChatThreadIdRoute = ChatThreadIdRouteImport.update({
-  id: '/$threadId',
-  path: '/$threadId',
-  getParentRoute: () => ChatRoute,
-} as any)
+const AuthenticatedMagazzinoProductIdRoute =
+  AuthenticatedMagazzinoProductIdRouteImport.update({
+    id: '/$productId',
+    path: '/$productId',
+    getParentRoute: () => AuthenticatedMagazzinoRoute,
+  } as any)
+const AuthenticatedChatThreadIdRoute =
+  AuthenticatedChatThreadIdRouteImport.update({
+    id: '/$threadId',
+    path: '/$threadId',
+    getParentRoute: () => AuthenticatedChatRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/chat': typeof ChatRouteWithChildren
-  '/magazzino': typeof MagazzinoRouteWithChildren
-  '/opzioni': typeof OpzioniRoute
-  '/ordini': typeof OrdiniRoute
+  '/login': typeof LoginRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/chat/$threadId': typeof ChatThreadIdRoute
-  '/magazzino/$productId': typeof MagazzinoProductIdRoute
-  '/chat/': typeof ChatIndexRoute
-  '/magazzino/': typeof MagazzinoIndexRoute
+  '/chat': typeof AuthenticatedChatRouteWithChildren
+  '/magazzino': typeof AuthenticatedMagazzinoRouteWithChildren
+  '/opzioni': typeof AuthenticatedOpzioniRoute
+  '/ordini': typeof AuthenticatedOrdiniRoute
+  '/chat/$threadId': typeof AuthenticatedChatThreadIdRoute
+  '/magazzino/$productId': typeof AuthenticatedMagazzinoProductIdRoute
+  '/chat/': typeof AuthenticatedChatIndexRoute
+  '/magazzino/': typeof AuthenticatedMagazzinoIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/opzioni': typeof OpzioniRoute
-  '/ordini': typeof OrdiniRoute
+  '/login': typeof LoginRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/chat/$threadId': typeof ChatThreadIdRoute
-  '/magazzino/$productId': typeof MagazzinoProductIdRoute
-  '/chat': typeof ChatIndexRoute
-  '/magazzino': typeof MagazzinoIndexRoute
+  '/opzioni': typeof AuthenticatedOpzioniRoute
+  '/ordini': typeof AuthenticatedOrdiniRoute
+  '/chat/$threadId': typeof AuthenticatedChatThreadIdRoute
+  '/magazzino/$productId': typeof AuthenticatedMagazzinoProductIdRoute
+  '/chat': typeof AuthenticatedChatIndexRoute
+  '/magazzino': typeof AuthenticatedMagazzinoIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/chat': typeof ChatRouteWithChildren
-  '/magazzino': typeof MagazzinoRouteWithChildren
-  '/opzioni': typeof OpzioniRoute
-  '/ordini': typeof OrdiniRoute
+  '/_authenticated': typeof AuthenticatedRouteWithChildren
+  '/login': typeof LoginRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/chat/$threadId': typeof ChatThreadIdRoute
-  '/magazzino/$productId': typeof MagazzinoProductIdRoute
-  '/chat/': typeof ChatIndexRoute
-  '/magazzino/': typeof MagazzinoIndexRoute
+  '/_authenticated/chat': typeof AuthenticatedChatRouteWithChildren
+  '/_authenticated/magazzino': typeof AuthenticatedMagazzinoRouteWithChildren
+  '/_authenticated/opzioni': typeof AuthenticatedOpzioniRoute
+  '/_authenticated/ordini': typeof AuthenticatedOrdiniRoute
+  '/_authenticated/chat/$threadId': typeof AuthenticatedChatThreadIdRoute
+  '/_authenticated/magazzino/$productId': typeof AuthenticatedMagazzinoProductIdRoute
+  '/_authenticated/chat/': typeof AuthenticatedChatIndexRoute
+  '/_authenticated/magazzino/': typeof AuthenticatedMagazzinoIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/login'
+    | '/sitemap.xml'
     | '/chat'
     | '/magazzino'
     | '/opzioni'
     | '/ordini'
-    | '/sitemap.xml'
     | '/chat/$threadId'
     | '/magazzino/$productId'
     | '/chat/'
@@ -122,9 +141,10 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/login'
+    | '/sitemap.xml'
     | '/opzioni'
     | '/ordini'
-    | '/sitemap.xml'
     | '/chat/$threadId'
     | '/magazzino/$productId'
     | '/chat'
@@ -132,23 +152,23 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/chat'
-    | '/magazzino'
-    | '/opzioni'
-    | '/ordini'
+    | '/_authenticated'
+    | '/login'
     | '/sitemap.xml'
-    | '/chat/$threadId'
-    | '/magazzino/$productId'
-    | '/chat/'
-    | '/magazzino/'
+    | '/_authenticated/chat'
+    | '/_authenticated/magazzino'
+    | '/_authenticated/opzioni'
+    | '/_authenticated/ordini'
+    | '/_authenticated/chat/$threadId'
+    | '/_authenticated/magazzino/$productId'
+    | '/_authenticated/chat/'
+    | '/_authenticated/magazzino/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ChatRoute: typeof ChatRouteWithChildren
-  MagazzinoRoute: typeof MagazzinoRouteWithChildren
-  OpzioniRoute: typeof OpzioniRoute
-  OrdiniRoute: typeof OrdiniRoute
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
+  LoginRoute: typeof LoginRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
@@ -161,32 +181,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/ordini': {
-      id: '/ordini'
-      path: '/ordini'
-      fullPath: '/ordini'
-      preLoaderRoute: typeof OrdiniRouteImport
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/opzioni': {
-      id: '/opzioni'
-      path: '/opzioni'
-      fullPath: '/opzioni'
-      preLoaderRoute: typeof OpzioniRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/magazzino': {
-      id: '/magazzino'
-      path: '/magazzino'
-      fullPath: '/magazzino'
-      preLoaderRoute: typeof MagazzinoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/chat': {
-      id: '/chat'
-      path: '/chat'
-      fullPath: '/chat'
-      preLoaderRoute: typeof ChatRouteImport
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -196,69 +202,116 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/magazzino/': {
-      id: '/magazzino/'
+    '/_authenticated/ordini': {
+      id: '/_authenticated/ordini'
+      path: '/ordini'
+      fullPath: '/ordini'
+      preLoaderRoute: typeof AuthenticatedOrdiniRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/opzioni': {
+      id: '/_authenticated/opzioni'
+      path: '/opzioni'
+      fullPath: '/opzioni'
+      preLoaderRoute: typeof AuthenticatedOpzioniRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/magazzino': {
+      id: '/_authenticated/magazzino'
+      path: '/magazzino'
+      fullPath: '/magazzino'
+      preLoaderRoute: typeof AuthenticatedMagazzinoRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/chat': {
+      id: '/_authenticated/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof AuthenticatedChatRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/magazzino/': {
+      id: '/_authenticated/magazzino/'
       path: '/'
       fullPath: '/magazzino/'
-      preLoaderRoute: typeof MagazzinoIndexRouteImport
-      parentRoute: typeof MagazzinoRoute
+      preLoaderRoute: typeof AuthenticatedMagazzinoIndexRouteImport
+      parentRoute: typeof AuthenticatedMagazzinoRoute
     }
-    '/chat/': {
-      id: '/chat/'
+    '/_authenticated/chat/': {
+      id: '/_authenticated/chat/'
       path: '/'
       fullPath: '/chat/'
-      preLoaderRoute: typeof ChatIndexRouteImport
-      parentRoute: typeof ChatRoute
+      preLoaderRoute: typeof AuthenticatedChatIndexRouteImport
+      parentRoute: typeof AuthenticatedChatRoute
     }
-    '/magazzino/$productId': {
-      id: '/magazzino/$productId'
+    '/_authenticated/magazzino/$productId': {
+      id: '/_authenticated/magazzino/$productId'
       path: '/$productId'
       fullPath: '/magazzino/$productId'
-      preLoaderRoute: typeof MagazzinoProductIdRouteImport
-      parentRoute: typeof MagazzinoRoute
+      preLoaderRoute: typeof AuthenticatedMagazzinoProductIdRouteImport
+      parentRoute: typeof AuthenticatedMagazzinoRoute
     }
-    '/chat/$threadId': {
-      id: '/chat/$threadId'
+    '/_authenticated/chat/$threadId': {
+      id: '/_authenticated/chat/$threadId'
       path: '/$threadId'
       fullPath: '/chat/$threadId'
-      preLoaderRoute: typeof ChatThreadIdRouteImport
-      parentRoute: typeof ChatRoute
+      preLoaderRoute: typeof AuthenticatedChatThreadIdRouteImport
+      parentRoute: typeof AuthenticatedChatRoute
     }
   }
 }
 
-interface ChatRouteChildren {
-  ChatThreadIdRoute: typeof ChatThreadIdRoute
-  ChatIndexRoute: typeof ChatIndexRoute
+interface AuthenticatedChatRouteChildren {
+  AuthenticatedChatThreadIdRoute: typeof AuthenticatedChatThreadIdRoute
+  AuthenticatedChatIndexRoute: typeof AuthenticatedChatIndexRoute
 }
 
-const ChatRouteChildren: ChatRouteChildren = {
-  ChatThreadIdRoute: ChatThreadIdRoute,
-  ChatIndexRoute: ChatIndexRoute,
+const AuthenticatedChatRouteChildren: AuthenticatedChatRouteChildren = {
+  AuthenticatedChatThreadIdRoute: AuthenticatedChatThreadIdRoute,
+  AuthenticatedChatIndexRoute: AuthenticatedChatIndexRoute,
 }
 
-const ChatRouteWithChildren = ChatRoute._addFileChildren(ChatRouteChildren)
+const AuthenticatedChatRouteWithChildren =
+  AuthenticatedChatRoute._addFileChildren(AuthenticatedChatRouteChildren)
 
-interface MagazzinoRouteChildren {
-  MagazzinoProductIdRoute: typeof MagazzinoProductIdRoute
-  MagazzinoIndexRoute: typeof MagazzinoIndexRoute
+interface AuthenticatedMagazzinoRouteChildren {
+  AuthenticatedMagazzinoProductIdRoute: typeof AuthenticatedMagazzinoProductIdRoute
+  AuthenticatedMagazzinoIndexRoute: typeof AuthenticatedMagazzinoIndexRoute
 }
 
-const MagazzinoRouteChildren: MagazzinoRouteChildren = {
-  MagazzinoProductIdRoute: MagazzinoProductIdRoute,
-  MagazzinoIndexRoute: MagazzinoIndexRoute,
+const AuthenticatedMagazzinoRouteChildren: AuthenticatedMagazzinoRouteChildren =
+  {
+    AuthenticatedMagazzinoProductIdRoute: AuthenticatedMagazzinoProductIdRoute,
+    AuthenticatedMagazzinoIndexRoute: AuthenticatedMagazzinoIndexRoute,
+  }
+
+const AuthenticatedMagazzinoRouteWithChildren =
+  AuthenticatedMagazzinoRoute._addFileChildren(
+    AuthenticatedMagazzinoRouteChildren,
+  )
+
+interface AuthenticatedRouteChildren {
+  AuthenticatedChatRoute: typeof AuthenticatedChatRouteWithChildren
+  AuthenticatedMagazzinoRoute: typeof AuthenticatedMagazzinoRouteWithChildren
+  AuthenticatedOpzioniRoute: typeof AuthenticatedOpzioniRoute
+  AuthenticatedOrdiniRoute: typeof AuthenticatedOrdiniRoute
 }
 
-const MagazzinoRouteWithChildren = MagazzinoRoute._addFileChildren(
-  MagazzinoRouteChildren,
+const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedChatRoute: AuthenticatedChatRouteWithChildren,
+  AuthenticatedMagazzinoRoute: AuthenticatedMagazzinoRouteWithChildren,
+  AuthenticatedOpzioniRoute: AuthenticatedOpzioniRoute,
+  AuthenticatedOrdiniRoute: AuthenticatedOrdiniRoute,
+}
+
+const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
+  AuthenticatedRouteChildren,
 )
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ChatRoute: ChatRouteWithChildren,
-  MagazzinoRoute: MagazzinoRouteWithChildren,
-  OpzioniRoute: OpzioniRoute,
-  OrdiniRoute: OrdiniRoute,
+  AuthenticatedRoute: AuthenticatedRouteWithChildren,
+  LoginRoute: LoginRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport

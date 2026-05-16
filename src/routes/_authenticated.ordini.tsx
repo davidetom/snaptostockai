@@ -3,7 +3,7 @@ import { Receipt } from "lucide-react";
 import { TopBar } from "@/components/TopBar";
 import { BottomNav } from "@/components/BottomNav";
 
-export const Route = createFileRoute("/ordini")({
+export const Route = createFileRoute("/_authenticated/ordini")({
   component: OrdiniPage,
 });
 
